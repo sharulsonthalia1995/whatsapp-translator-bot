@@ -48,10 +48,8 @@ async function translateText(text) {
         // Translate
         const [translation] = await translate.translate(text, targetLang);
         
-        const sourceFlag = detectedLang === 'id' ? '🇮🇩 Indonesian' : '🇺🇸 English';
-        const targetFlag = targetLang === 'id' ? '🇮🇩 Indonesian' : '🇺🇸 English';
-        
-        return `*From ${sourceFlag}:*\n"${text}"\n\n*To ${targetFlag}:*\n"${translation}"`;
+        // Return only the translated text, no formatting
+        return translation;
         
     } catch (error) {
         console.error('Translation error:', error);
