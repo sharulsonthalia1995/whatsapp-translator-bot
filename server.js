@@ -39,16 +39,24 @@ async function translateText(text) {
     try {
         // Detect language
         const [detection] = await translate.detect(text);
-        const detectedLang = detection.language;
+        let detectedLang = detection.language;
+        
+        // If Google detected English but text contains clear Indonesian words, override
+        if (detectedLang === 'en') {
+            const indonesianWords = ['nama', 'saya', 'anda', 'dia', 'ini', 'itu', 'yang', 'dan', 'atau', 'dengan', 'untuk', 'dari', 'ke', 'di', 'pada', 'adalah', 'akan', 'tidak'];
+            const words = text.toLowerCase().split(/\s+/);
+            const hasIndonesian = words.some(word => indonesianWords.includes(word));
+            
+            if (hasIndonesian) {
+                detectedLang = 'id';
+            }
+        }
         
         console.log(`Detected language: ${detectedLang}`);
         
         const targetLang = detectedLang === 'id' ? 'en' : 'id';
-        
-        // Translate
         const [translation] = await translate.translate(text, targetLang);
         
-        // Return only the translated text, no formatting
         return translation;
         
     } catch (error) {
