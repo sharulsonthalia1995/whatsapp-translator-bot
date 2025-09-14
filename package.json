@@ -1,0 +1,15 @@
+{
+    "name": "twilio-whatsapp-translator",
+    "version": "1.0.0",
+    "description": "WhatsApp translator bot using Twilio API",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "@google-cloud/translate": "^9.2.0",
+        "@vitalets/google-translate-api": "^9.2.0",
+        "express": "^4.18.2",
+        "twilio": "^4.15.0"
+    }
+}
