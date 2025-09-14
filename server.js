@@ -37,12 +37,12 @@ function detectLanguage(text) {
 // Translation function
 async function translateText(text) {
     try {
-        // Detect language
+        // Try Google's detection first
         const [detection] = await translate.detect(text);
         let detectedLang = detection.language;
         
-        // If Google detected English but text contains clear Indonesian words, override
-        if (detectedLang === 'en') {
+        // If Google detected English OR Malay but text contains clear Indonesian words, override to Indonesian
+        if (detectedLang === 'en' || detectedLang === 'ms') {
             const indonesianWords = ['nama', 'saya', 'anda', 'dia', 'ini', 'itu', 'yang', 'dan', 'atau', 'dengan', 'untuk', 'dari', 'ke', 'di', 'pada', 'adalah', 'akan', 'tidak'];
             const words = text.toLowerCase().split(/\s+/);
             const hasIndonesian = words.some(word => indonesianWords.includes(word));
