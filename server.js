@@ -70,7 +70,7 @@ app.post('/webhook', async (req, res) => {
     const incomingMessage = req.body.Body;
     const fromNumber = req.body.From;
     
-    console.log(`Message from ${fromNumber}: ${incomingMessage}`);
+    console.log(`Message from ${fromNumber}`);
     
     // Handle commands
     if (incomingMessage.toLowerCase().trim() === 'help') {
